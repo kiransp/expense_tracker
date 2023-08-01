@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import categories from "./Categories";
 
 // 1. creating a schema
 const schema = z.object({
@@ -13,18 +14,24 @@ const schema = z.object({
 
 // 2. extract the inferred type
 type FormData = z.infer<typeof schema>;
-
-function Form() {
+interface FormProps {
+  handleExpense: (data: any) => void;
+}
+function Form({ handleExpense }: FormProps) {
   // 3. Attach zod with react-form by passing the 2nd step type as <FormData>  and then passing a resolver
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: FieldValues) => console.log(data);
+  const onSubmit = (data: FieldValues) => {
+    handleExpense(data);
+    reset();
+  };
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -66,9 +73,11 @@ function Form() {
             className="form-select"
           >
             <option></option>
-            <option value="groceries">Groceries</option>
-            <option value="utilities">Utilities</option>
-            <option value="entertainment">Entertainment</option>
+            {categories.map((category) => (
+              <option value={category} key={category}>
+                {category}
+              </option>
+            ))}
           </select>
           {errors.category && (
             <p className="text-danger">{errors.category.message}</p>

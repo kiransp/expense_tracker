@@ -1,12 +1,36 @@
-function Summary() {
+import { FormEvent, useState } from "react";
+import categories from "./Categories";
+// first define expense type by giving its definition
+interface Expense {
+  id: number;
+  category: string;
+  amount: number;
+  description: string;
+}
+interface SummaryProps {
+  expenses: Expense[];
+  handleDelete: (id: number) => void;
+  handleFiltering: (category: string) => void;
+}
+
+function Summary({ expenses, handleDelete, handleFiltering }: SummaryProps) {
+  let total = 0;
+  expenses.map((item) => (total = total + item.amount));
+  if (expenses.length === 0) return null;
   return (
     <>
       <h2>Summary of expenses</h2>
-      <select id="category" className="form-select">
-        <option></option>
-        <option value="groceries">Groceries</option>
-        <option value="utilities">Utilities</option>
-        <option value="entertainment">Entertainment</option>
+      <select
+        id="category"
+        className="form-select"
+        onChange={(event) => handleFiltering(event.target.value)}
+      >
+        <option value=""></option>
+        {categories.map((category) => (
+          <option value={category} key={category}>
+            {category}
+          </option>
+        ))}
       </select>
       <table className="table border mt-3 ">
         <thead>
@@ -18,13 +42,25 @@ function Summary() {
           </tr>
         </thead>
         <tbody>
+          {expenses &&
+            expenses.map((item, index) => (
+              <tr key={index}>
+                <th className="fw-normal">{item.description}</th>
+                <td>{item.amount}</td>
+                <td>{item.category}</td>
+                <td>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleDelete(item.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
           <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>
-              <button className="btn btn-danger">Delete</button>
-            </td>
+            <th className="text-danger fw-bold">Total</th>
+            <td className="text-danger fw-bold">{total}</td>
           </tr>
         </tbody>
       </table>
