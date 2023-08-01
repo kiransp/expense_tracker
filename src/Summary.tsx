@@ -52,7 +52,7 @@ function Summary({ expenses, handleDelete, handleFiltering }: SummaryProps) {
                 <td>
                   <button
                     className="btn btn-danger"
-                    onClick={() => handleDelete(item.id)}
+                    onClick={() => handleDelete(item.id!)}
                   >
                     Delete
                   </button>

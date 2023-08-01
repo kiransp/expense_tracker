@@ -1,5 +1,5 @@
 interface Expense {
-  id: number;
+  id?: number;
   category: string;
   amount: number;
   description: string;

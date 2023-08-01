@@ -11,7 +11,7 @@ import { Expense } from "./Types";
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [expense, setExpense] = useState<Expense[]>([]);
-  const handleExpense = (data: any) => {
+  const handleExpense = (data: Expense) => {
     setExpense([...expense, { ...data, id: expense.length + 1 }]);
   };
 
