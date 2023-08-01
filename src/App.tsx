@@ -5,7 +5,7 @@ import Summary from "./Summary";
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [expense, setExpense] = useState([
-    { id: 1, amount: 10, description: "ABC", category: "Grocerries" },
+    { id: 1, amount: 10, description: "Milk", category: "Groceries" },
   ]);
   const handleExpense = (data: any) => {
     setExpense([...expense, { ...data, id: expense.length + 1 }]);
