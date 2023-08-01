@@ -1,7 +1,9 @@
+import Form from "./Form";
+
 function App() {
   return (
     <div className="App">
-      <h1>HI there</h1>
+      <Form />
     </div>
   );
 }
