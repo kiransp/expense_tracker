@@ -26,6 +26,7 @@ function Form({ handleExpense }: FormProps) {
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
+    mode: "onChange",
   });
 
   const onSubmit = (data: FieldValues) => {
