@@ -1,12 +1,16 @@
 import { useState } from "react";
 import Form from "./Form";
 import Summary from "./Summary";
-
+import { Expense } from "./Types";
+// interface Expense {
+//   id: number;
+//   category: string;
+//   amount: number;
+//   description: string;
+// }
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [expense, setExpense] = useState([
-    { id: 1, amount: 10, description: "Milk", category: "Groceries" },
-  ]);
+  const [expense, setExpense] = useState<Expense[]>([]);
   const handleExpense = (data: any) => {
     setExpense([...expense, { ...data, id: expense.length + 1 }]);
   };

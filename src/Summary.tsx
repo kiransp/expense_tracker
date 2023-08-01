@@ -1,12 +1,13 @@
 import { FormEvent, useState } from "react";
 import categories from "./Categories";
+import { Expense } from "./Types";
 // first define expense type by giving its definition
-interface Expense {
-  id: number;
-  category: string;
-  amount: number;
-  description: string;
-}
+// interface Expense {
+//   id: number;
+//   category: string;
+//   amount: number;
+//   description: string;
+// }
 interface SummaryProps {
   expenses: Expense[];
   handleDelete: (id: number) => void;
